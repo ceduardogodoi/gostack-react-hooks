@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 
 function App() {
   const [techs, setTechs] = useState([]);
   const [newTech, setNewTech] = useState('');
 
-  function handleAdd() {
+  const handleAdd = useCallback(() => {
     setTechs([...techs, newTech]);
     setNewTech('');
-  }
+  }, [newTech, techs]);
 
   useEffect(() => {
     const storageTechs = localStorage.getItem('techs');
@@ -31,6 +31,7 @@ function App() {
         ))}
       </ul>
       <strong>{`Você tem ${techSize} tecnologia(s)`}</strong>
+      <br />
       <input
         type="text"
         value={newTech}
